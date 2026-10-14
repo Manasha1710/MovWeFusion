@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>MovWeFusion</title>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<style>
+:root{--a:#ff7a1a;--b:#0fb5a8;--bg:#0b0d12;--bg2:#151922;--tx:#f4f4f6;--mu:#9aa1b0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-g=girl]{--a:#ff4f9a;--b:#a85cff;--bg:#160d1a;--bg2:#251530}
+:root[data-m=light]{--bg:#f6f3f0;--bg2:#fff;--tx:#1b1b22;--mu:#666}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){}}
+*{box-sizing:border-box;margin:0}body{font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);transition:background .6s}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer;border:0;background:none}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.flip{transform:rotate(180deg)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:12px;background:linear-gradient(135deg,var(--a),var(--b));color:#fff;font-weight:600;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 28px -6px var(--a)}.btn:active{transform:scale(.94)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#fff5 50%,transparent 70%);transform:translateX(-120%);transition:.6s}.btn:hover::after{transform:translateX(120%)}
+.gh{padding:10px 16px;border-radius:12px;background:#ffffff18;display:inline-flex;align-items:center;gap:8px;transition:.25s;border:1px solid #ffffff22}
+.gh:hover{background:#ffffff30;transform:translateY(-2px)}.gh.on{background:var(--a);color:#fff;border-color:transparent;animation:pop .35s}
+.ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--bg2);transition:.3s}.ic:hover{transform:rotate(12deg) scale(1.12);background:var(--a);color:#fff}
+@keyframes pop{50%{transform:scale(1.12)}}@keyframes up{from{opacity:0;transform:translateY(24px)}}@keyframes fl{to{transform:translateY(-50%)}}
+@keyframes br{50%{transform:scale(1.5);opacity:.3}}@keyframes sh{to{background-position:-200% 0}}@keyframes bob{50%{transform:translateY(-8px) rotate(6deg)}}
+.up{animation:up .7s both}
+.login{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:20px}
+.wall{position:absolute;inset:-20% -10%;display:grid;grid-template-columns:repeat(8,1fr);gap:12px;transform:rotate(-8deg);opacity:.55}
+.wall div.col{display:flex;flex-direction:column;gap:12px;animation:fl 40s linear infinite alternate}.wall div.col:nth-child(even){animation-duration:55s}
+.po{aspect-ratio:2/3;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;font-weight:800;position:relative;overflow:hidden;color:#fff;text-shadow:0 2px 8px #000a}
+.login::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#0b0d12cc,#0b0d12f5)}
+.card{position:relative;z-index:2;width:min(430px,100%);padding:32px;border-radius:24px;background:#12151dd9;backdrop-filter:blur(18px);border:1px solid #ffffff22;box-shadow:0 30px 80px #000a;color:#f4f4f6}
+.logo{font-size:34px;font-weight:900;background:linear-gradient(90deg,#ff7a1a,#ff4f9a,#a85cff,#0fb5a8,#ff7a1a);background-size:200%;-webkit-background-clip:text;color:transparent;animation:sh 5s linear infinite}
+.in{display:flex;align-items:center;gap:10px;background:#ffffff14;border:1px solid #ffffff22;border-radius:12px;padding:12px;margin:10px 0;transition:.3s;color:#f4f4f6}.in:focus-within{border-color:var(--a);box-shadow:0 0 0 3px #ff7a1a33}.in input{flex:1;background:none;border:0;outline:0;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;margin:12px 0}
+.ch{padding:14px 8px;border-radius:16px;text-align:center;background:#ffffff12;border:2px solid transparent;transition:.3s;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.ch:hover{transform:translateY(-4px)}.ch.on{border-color:var(--a);background:#ff7a1a22}
+.av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;font-size:18px;flex:none}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px 4vw;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 4vw;scrollbar-width:none}.tabs button{white-space:nowrap;padding:9px 18px;border-radius:99px;background:var(--bg2);transition:.3s}.tabs button:hover{transform:translateY(-2px)}.tabs button.on{background:linear-gradient(135deg,var(--a),var(--b));color:#fff}
+main{padding:0 4vw 90px}h2{margin:26px 0 12px}
+.row{display:grid;grid-auto-flow:column;grid-auto-columns:150px;gap:14px;overflow-x:auto;padding:6px 2px 14px;scrollbar-width:thin}
+.mc{cursor:pointer;transition:.35s}.mc:hover{transform:scale(1.08) translateY(-6px);z-index:3}.mc .po{box-shadow:0 12px 30px -10px #000}
+.bd{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;font-size:11px;font-weight:700}.bd span{background:#000a;padding:3px 7px;border-radius:8px;display:flex;gap:3px;align-items:center}.bd svg{width:12px;height:12px}
+.hero{position:relative;aspect-ratio:16/8;min-height:240px;border-radius:20px;overflow:hidden;display:grid;place-items:center;background:#000;color:#fff}
+.vid{position:absolute;inset:0;background-size:300% 300%;animation:sh 9s linear infinite}
+.ctl{position:absolute;left:0;right:0;bottom:0;padding:12px;background:linear-gradient(transparent,#000d);display:flex;flex-direction:column;gap:8px;font-size:13px}
+.bar{height:5px;background:#fff4;border-radius:9px;cursor:pointer}.bar i{display:block;height:100%;background:var(--a);border-radius:9px}
+.menu{position:absolute;right:12px;bottom:70px;background:#111e;border-radius:14px;padding:10px;min-width:170px;animation:up .3s}.menu button{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:8px}.menu button:hover,.menu button.on{background:var(--a)}
+.full{position:fixed;inset:0;z-index:60;background:#000;padding:0}.full .hero{height:100%;border-radius:0;aspect-ratio:auto}
+.tag{padding:4px 10px;border-radius:99px;background:var(--bg2);font-size:13px}
+.ov{position:fixed;inset:0;z-index:50;background:#000a;display:grid;place-items:center;padding:16px;animation:up .3s}.pn{background:var(--bg2);border-radius:20px;padding:22px;max-width:640px;width:100%;max-height:85vh;overflow:auto}
+.chat{position:fixed;right:16px;bottom:16px;z-index:40}.chat .pn{position:absolute;right:0;bottom:64px;width:min(340px,86vw);height:420px;display:flex;flex-direction:column;box-shadow:0 20px 60px #000a}
+.msg{padding:9px 12px;border-radius:14px;margin:6px 0;max-width:88%;font-size:14px;animation:up .4s}.msg.u{background:var(--a);color:#fff;margin-left:auto}.msg.b{background:var(--bg)}
+.ld{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;align-content:center;gap:18px}.ld b{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--a);margin:0 6px;animation:br 2.4s ease-in-out infinite}.ld b:nth-child(2){animation-delay:.4s;background:var(--b)}.ld b:nth-child(3){animation-delay:.8s}
+.sw{width:46px;height:26px;border-radius:99px;background:#8885;position:relative;transition:.3s}.sw.on{background:var(--a)}.sw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.3s}.sw.on i{left:23px}
+.set{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #8883;gap:12px}
+.wl{background:linear-gradient(120deg,var(--a),var(--b));border-radius:20px;padding:22px;color:#fff;display:flex;align-items:center;gap:16px;overflow:hidden}.st{animation:bob 3s ease-in-out infinite;flex:none}
+select,.fi{background:var(--bg2);border-radius:10px;padding:8px 10px;border:1px solid #8884;max-width:100%}
+@media(max-width:640px){.wall{grid-template-columns:repeat(4,1fr)}.hide{display:none}}
+</style></head><body><div id="r"></div>
+<script>
+const{useState:S,useEffect:E,useRef:R}=React,h=htm.bind(React.createElement);
+const P={heart:"M12 20s-7-4.500-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.500-7 10-7 10z",up:"M7 11v9H4v-9zM7 11l4-8c2 0 3 1 3 3l-1 4h6a2 2 0 0 1 2 2l-1.500 6a2 2 0 0 1-2 1.500H7",plus:"M12 5v14M5 12h14",clock:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",dl:"M12 4v11M7 11l5 5 5-5M5 20h14",search:"M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5",user:"M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21c0-4 4-6 8-6s8 2 8 6",set:"M4 7h10M18 7h2M4 17h2M10 17h10M16 4v6M8 14v6",moon:"M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z",sun:"M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.500 1.500M17.500 17.500L19 19M5 19l1.500-1.500M17.500 6.500L19 5",play:"M7 4l13 8-13 8z",pause:"M8 5v14M16 5v14",chk:"M5 12l5 5 9-10",x:"M6 6l12 12M18 6L6 18",bot:"M5 8h14v10H5zM12 8V4M9 13h.01M15 13h.01",mail:"M3 6h18v12H3zM3 7l9 7 9-7",ph:"M7 3h10v18H7zM11 18h2",star:"M12 3l2.700 6 6.300.600-4.800 4.300 1.500 6.300L12 17l-5.700 3.200 1.500-6.300L3 9.600 9.300 9z",back:"M15 5l-7 7 7 7",cc:"M3 6h18v12H3zM8 12h3M13 12h3",globe:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3 4 3 14 0 18M12 3c-3 4-3 14 0 18",film:"M4 4h16v16H4zM8 4v16M16 4v16M4 9h4M16 9h4M4 15h4M16 15h4",lock:"M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3",send:"M4 12l16-8-6 16-2-7z",g:"M20 12h-8M12 4a8 8 0 1 0 8 8",ap:"M12 7c1-2 3-2 3-2 0 2-1 3-3 3zM8 9c-3 0-4 4-3 7s2 5 4 4c1-.500 2-.500 3 0 2 1 3-1 4-4-3-1-3-5 0-6-1-2-4-2-5-1-1-1-2-1-3 0z",mask:"M5 5h14v7a7 7 0 0 1-14 0zM9 11h.01M15 11h.01M9 15c2 1.500 4 1.500 6 0",fs:"M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5",vol:"M4 9v6h4l5 4V5L8 9zM17 9a4 4 0 0 1 0 6",out:"M10 4H5v16h5M15 8l4 4-4 4M19 12H9"};
+const I=({n,c})=>h`<svg className=${"i "+(c||"")} viewBox="0 0 24 24"><path d=${P[n]}/></svg>`;
+const LG=["English","Tamil","Hindi","Telugu","Malayalam","Kannada","Bengali","Marathi","Korean","Japanese","Spanish","French"];
+const GN=["Action","Drama","Sci-Fi","Romance","Thriller","Comedy","Animation"];
+const AM=["Surya","Vijay","Shah Rukh Khan","Ram Charan","Leonardo DiCaprio"],AF=["Alia Bhatt","Deepika Padukone","Samantha","Nayanthara","Zendaya"];
+const GR=["Soorarai Pottru,2020,8.7,Drama,Tamil,153,Surya|Aparna Balamurali,A dreamer fights to launch a budget airline.","Master,2021,7.3,Action,Tamil,179,Vijay|Malavika Mohanan,A drunk professor takes on a juvenile prison.","Leo,2023,7.2,Thriller,Tamil,164,Vijay|Trisha,A cafe owner's quiet past comes calling.","Singam,2010,6.9,Action,Tamil,158,Surya|Anushka Shetty,A cop faces a ruthless don.","Pathaan,2023,5.9,Action,Hindi,146,Shah Rukh Khan|Deepika Padukone,A spy races to stop a deadly attack.","Jawan,2023,7.0,Action,Hindi,169,Shah Rukh Khan|Nayanthara,A man rights wrongs with a band of women.","Dilwale Dulhania Le Jayenge,1995,8.0,Romance,Hindi,189,Shah Rukh Khan|Kajol,Two travellers fall in love across Europe.","Gangubai Kathiawadi,2022,6.8,Drama,Hindi,154,Alia Bhatt|Ajay Devgn,A girl rises to lead Kamathipura.","Raazi,2018,7.7,Thriller,Hindi,138,Alia Bhatt|Vicky Kaushal,A young spy marries into an enemy home.","Highway,2014,7.5,Romance,Hindi,133,Alia Bhatt|Randeep Hooda,A kidnapped bride finds freedom on the road.","RRR,2022,7.8,Action,Telugu,182,Ram Charan|Alia Bhatt,Two rebels forge a legendary friendship.","Rangasthalam,2018,7.2,Drama,Telugu,179,Ram Charan|Samantha,A deaf villager challenges a tyrant.","Magadheera,2009,7.7,Romance,Telugu,166,Ram Charan|Kajal Aggarwal,A love story that outlives reincarnation.","Eega,2012,7.7,Comedy,Telugu,134,Samantha|Nani,A reborn fly plots revenge on a villain.","Inception,2010,8.8,Sci-Fi,English,148,Leonardo DiCaprio|Elliot Page,Thieves plant an idea inside a dream.","Interstellar,2014,8.7,Sci-Fi,English,169,Matthew McConaughey|Anne Hathaway,Explorers cross a wormhole to save Earth.","The Dark Knight,2008,9.0,Action,English,152,Christian Bale|Heath Ledger,Batman faces the chaos of the Joker.","Dune,2021,8.0,Sci-Fi,English,155,Timothee Chalamet|Zendaya,A young heir is drawn into a desert war.","Titanic,1997,7.9,Romance,English,194,Leonardo DiCaprio|Kate Winslet,Love blooms on a doomed ocean liner.","Spirited Away,2001,8.6,Animation,Japanese,125,Rumi Hiiragi|Miyu Irino,A girl works in a spirit bathhouse.","Parasite,2019,8.5,Thriller,Korean,132,Song Kang-ho|Cho Yeo-jeong,A poor family infiltrates a wealthy home.","Coco,2017,8.4,Animation,English,105,Anthony Gonzalez|Gael Garcia Bernal,A boy visits the land of the dead.","The Wolf of Wall Street,2013,8.2,Comedy,English,180,Leonardo DiCaprio|Margot Robbie,A broker's rise and wild fall.","Kaithi,2019,8.4,Thriller,Tamil,145,Karthi|Narain,A convict races through one night to save cops."].map((s,i)=>{const[t,y,r,g,l,m,a,d]=s.split(",");return{id:i,t,y:+y,r:+r,g,l,m:+m,a:a.split("|"),d,hue:(i*47)%360}});
+const D=GR,bg=m=>`linear-gradient(160deg,hsl(${m.hue} 70% 45%),hsl(${(m.hue+60)%360} 65% 18%))`;
+const hm=m=>Math.floor(m/60)+"h "+m%60+"m",fm=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+const GT={English:"Welcome back",Tamil:"மீண்டும் வருக",Hindi:"वापसी पर स्वागत है",Telugu:"తిరిగి స్వాగతం",Malayalam:"സ്വാഗതം",Kannada:"ಸ್ವಾಗತ",Bengali:"স্বাগতম",Marathi:"स्वागत आहे",Korean:"다시 오신 것을 환영합니다",Japanese:"おかえりなさい",Spanish:"Bienvenido",French:"Bon retour"};
+const CP=["You have excellent taste","Your watchlist is looking legendary","Cinema is better with you","You're a star tonight"];
+const Av=({n,s=56})=>{let k=[...n].reduce((a,c)=>a+c.charCodeAt(0),0)%360;return h`<div className="av" style=${{width:s,height:s,background:`linear-gradient(135deg,hsl(${k} 70% 50%),hsl(${k+50} 70% 30%))`}}>${n.split(" ").map(w=>w[0]).slice(0,2).join("")}</div>`};
+const Post=({m,go,L})=>h`<div className="mc" onClick=${()=>go(m)}><div className="po" style=${{background:bg(m)}}><div className="bd"><span><${I} n="star"/>${m.r}</span><span><${I} n="clock"/>${hm(m.m)}</span></div><span style=${{fontSize:15}}>${m.t}</span><small style=${{opacity:.8,fontWeight:500}}>${m.y} · ${m.l}</small></div></div>`;
+const Rw=({t,list,go})=>list.length?h`<div className="up"><h2>${t}</h2><div className="row">${list.map(m=>h`<${Post} key=${m.id} m=${m} go=${go}/>`)}</div></div>`:null;
+const Load=()=>h`<div className="ld"><div><b></b><b></b><b></b></div><p style=${{color:"var(--mu)"}}>Breathe in... your movie is on its way</p></div>`;
+
+function Player({m,full,onFull,onClose,trailer,mini}){
+ const[pl,setPl]=S(true),[t,setT]=S(0),[sp,setSp]=S(1),[q,setQ]=S("1080p"),[sb,setSb]=S("Off"),[au,setAu]=S("Original"),[mn,setMn]=S(null);
+ const dur=trailer?95:m.m*60;
+ E(()=>{const i=setInterval(()=>pl&&setT(x=>Math.min(dur,x+.25*sp)),250);return()=>clearInterval(i)},[pl,sp,dur]);
+ const opts={Speed:[.5,1,1.5,2,4,6,8].map(x=>x+"x"),Quality:["480p","720p","1080p","4K"],Subtitles:["Off","English","Tamil","Hindi","Telugu"],Audio:["Original","English","Tamil","Hindi","Telugu"]};
+ const cur={Speed:sp+"x",Quality:q,Subtitles:sb,Audio:au},set={Speed:v=>setSp(parseFloat(v)),Quality:setQ,Subtitles:setSb,Audio:setAu};
+ return h`<div className=${full?"full":""}><div className="hero" style=${full?{}:{}}>
+ <div className="vid" style=${{background:`linear-gradient(120deg,hsl(${m.hue} 80% 30%),hsl(${m.hue+80} 70% 15%),hsl(${m.hue+160} 70% 30%))`,backgroundSize:"300% 300%"}}></div>
+ <div style=${{position:"relative",textAlign:"center",padding:16}}><div style=${{fontSize:"clamp(22px,5vw,46px)",fontWeight:900}}>${m.t}</div><div>${trailer?"Official Trailer":"Now Playing"} · ${q} · ${sp}x</div>${sb!=="Off"&&h`<div style=${{marginTop:14,background:"#000a",padding:"4px 10px",borderRadius:6,display:"inline-block"}}>[${sb}] ${m.d}</div>`}</div>
+ ${mini&&h`<button className="ic" style=${{position:"absolute",top:12,left:12}} onClick=${mini}><${I} n="back"/></button>`}
+ <div className="ctl"><div className="bar" onClick=${e=>{const b=e.currentTarget.getBoundingClientRect();setT((e.clientX-b.left)/b.width*dur)}}><i style=${{width:t/dur*100+"%"}}></i></div>
+ <div style=${{display:"flex",gap:12,alignItems:"center",flexWrap:"wrap"}}><button onClick=${()=>setPl(!pl)}><${I} n=${pl?"pause":"play"}/></button><span>${fm(t)} / ${fm(dur)}</span><span style=${{flex:1}}></span>
+ ${["Speed","Quality","Subtitles","Audio"].map(k=>h`<button key=${k} className="gh" style=${{padding:"5px 10px"}} onClick=${()=>setMn(mn===k?null:k)}><${I} n=${k==="Subtitles"?"cc":k==="Audio"?"vol":k==="Speed"?"clock":"set"}/><span className="hide">${k}</span></button>`)}
+ <button onClick=${full?onClose:onFull}><${I} n=${full?"x":"fs"}/></button></div></div>
+ ${mn&&h`<div className="menu">${opts[mn].map(o=>h`<button key=${o} className=${String(o)===String(cur[mn])?"on":""} onClick=${()=>{set[mn](o);setMn(null)}}>${o}</button>`)}</div>`}
+ </div></div>`}
+
+function Login({ok}){
+ const[u,sU]=S(""),[p,sP]=S("");
+ return h`<div className="login"><div className="wall">${[0,1,2,3,4,5,6,7].map(c=>h`<div className="col" key=${c}>${D.concat(D).slice(c*3,c*3+9).map((m,i)=>h`<div className="po" key=${i} style=${{background:bg(m)}}>${m.t}</div>`)}</div>`)}</div>
+ <div className="card up"><div className="logo">MovWeFusion</div><p style=${{color:"#9aa1b0",margin:"4px 0 14px"}}>Stories from every screen, fused for you.</p>
+ <label className="in"><${I} n="user"/><input placeholder="Username" value=${u} onChange=${e=>sU(e.target.value)}/></label>
+ <label className="in"><${I} n="lock"/><input type="password" placeholder="Password" value=${p} onChange=${e=>sP(e.target.value)}/></label>
+ <button className="btn" style=${{width:"100%",justifyContent:"center",margin:"6px 0 14px"}} onClick=${()=>ok(u||"Guest")}>Sign In <${I} n="play"/></button>
+ <div style=${{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>${[["g","Google"],["ap","Apple"],["mail","Email"],["ph","Phone"]].map(([n,l])=>h`<button key=${l} className="gh" style=${{justifyContent:"center"}} onClick=${()=>ok(u||l+" user")}><${I} n=${n}/>${l}</button>`)}</div></div></div>`}
+
+function Prefs({ok}){
+ const[g,sG]=S("boy"),[sel,sS]=S({l:["English"],g:[],a:[],f:[]});
+ const tg=(k,v)=>sS(s=>({...s,[k]:s[k].includes(v)?s[k].filter(x=>x!==v):[...s[k],v]}));
+ const Sec=({t,k,items,ic,av})=>h`<h2>${t}</h2><div className="grid">${items.map(x=>h`<button key=${x} className=${"ch"+(sel[k].includes(x)?" on":"")} onClick=${()=>tg(k,x)}>${av?h`<${Av} n=${x} s=${50}/>`:h`<${I} n=${ic}/>`}${x}</button>`)}</div>`;
+ return h`<div style=${{maxWidth:900,margin:"auto",padding:"24px 4vw 60px"}} className="up"><div className="logo">MovWeFusion</div><p style=${{color:"var(--mu)"}}>Tell us what you love — pick as many as you like.</p>
+ <h2>Gender</h2><div style=${{display:"flex",gap:10}}>${[["boy","Boy"],["girl","Girl"]].map(([v,l])=>h`<button key=${v} className=${"gh"+(g===v?" on":"")} onClick=${()=>{sG(v);document.documentElement.dataset.g=v}}><${I} n="mask"/>${l}</button>`)}</div>
+ <${Sec} t="Language" k="l" items=${LG} ic="globe"/><${Sec} t="Genre" k="g" items=${GN} ic="film"/><${Sec} t="Favourite Actors" k="a" items=${AM} av=${1}/><${Sec} t="Favourite Actresses" k="f" items=${AF} av=${1}/>
+ <button className="btn" onClick=${()=>ok(g,sel)}>Continue to MovWeFusion <${I} n="play"/></button></div>`}
+
+function Detail({m,L,tg,go,back}){
+ const[tab,sT]=S("Actors"),[full,sF]=S(false),[act,sA]=S(null);
+ const rel=D.filter(x=>x.id!==m.id&&(x.g===m.g||x.a.some(a=>m.a.includes(a)))),A=(k,n,l)=>h`<button key=${k} className=${"gh"+(L[k].includes(m.t)?" on":"")} onClick=${()=>tg(k,m.t)}><${I} n=${n} c=${k==="dis"?"flip":""}/>${l}</button>`;
+ return h`<div className="up" style=${{paddingTop:12}}>
+ <${Player} m=${m} trailer=${true} mini=${back} onFull=${()=>{sF(true);tg("hist",m.t,1)}}/>
+ ${full&&h`<${Player} m=${m} full=${true} onClose=${()=>sF(false)}/>`}
+ <div style=${{display:"flex",gap:8,flexWrap:"wrap",margin:"16px 0"}}><button className="btn" onClick=${()=>{sF(true);tg("hist",m.t,1)}}><${I} n="play"/>Watch Full Movie</button>${A("like","up","Like")}${A("dis","up","Unlike")}${A("wish","plus","Wishlist")}${A("later","clock","Watch Later")}${A("dl","dl","Download")}</div>
+ <h1 style=${{fontSize:"clamp(26px,5vw,42px)"}}>${m.t}</h1>
+ <div style=${{display:"flex",gap:8,flexWrap:"wrap",margin:"10px 0"}}><span className="tag"><${I} n="star"/> ${m.r}/10</span><span className="tag">${m.y}</span><span className="tag">${hm(m.m)}</span><span className="tag">${m.g}</span><span className="tag">${m.l}</span></div>
+ <p style=${{color:"var(--mu)",maxWidth:700,lineHeight:1.6}}>${m.d} Starring ${m.a.join(" and ")}, this ${m.y} ${m.l} ${m.g.toLowerCase()} is rated ${m.r}/10 by viewers.</p>
+ <div className="tabs" style=${{padding:"18px 0 8px"}}>${["Actors","Suggestions","Seasons"].map(t=>h`<button key=${t} className=${tab===t?"on":""} onClick=${()=>sT(t)}>${t}</button>`)}</div>
+ ${tab==="Actors"&&h`<div style=${{display:"flex",gap:22,flexWrap:"wrap"}}>${m.a.map(a=>h`<button key=${a} onClick=${()=>sA(a)} style=${{textAlign:"center"}} className="mc"><${Av} n=${a} s=${84}/><div style=${{marginTop:6,fontSize:13}}>${a}</div></button>`)}</div>`}
+ ${tab==="Suggestions"&&h`<div className="row">${rel.map(x=>h`<${Post} key=${x.id} m=${x} go=${go}/>`)}</div>`}
+ ${tab==="Seasons"&&h`<div>${[1,2].map(s=>h`<div key=${s} className="set"><b>Season ${s}</b><span style=${{color:"var(--mu)"}}>${6+s*2} episodes · ${m.y+s-1}</span></div>`)}<p style=${{color:"var(--mu)",marginTop:8}}>Standalone film — extra seasons shown as the saga, sequels and spin-offs.</p></div>`}
+ ${act&&h`<div className="ov" onClick=${()=>sA(null)}><div className="pn" onClick=${e=>e.stopPropagation()}><div style=${{display:"flex",gap:12,alignItems:"center"}}><${Av} n=${act}/><h2 style=${{margin:0,flex:1}}>${act}</h2><button className="ic" onClick=${()=>sA(null)}><${I} n="x"/></button></div><div className="grid" style=${{gridTemplateColumns:"repeat(auto-fill,minmax(120px,1fr))"}}>${D.filter(x=>x.a.includes(act)).map(x=>h`<${Post} key=${x.id} m=${x} go=${y=>{sA(null);go(y)}}/>`)}</div></div></div>`}
+ </div>`}
+
+function Bot({go,L}){
+ const[o,sO]=S(false),[v,sV]=S(""),[ms,sM]=S([{b:1,t:"Hi! Tell me your mood or where you are, and I'll pick a movie."}]);
+ const say=()=>{if(!v.trim())return;const q=v.toLowerCase(),map=[[/sad|cry|low|lonely/,"Drama"],[/love|romantic|date/,"Romance"],[/happy|fun|laugh|party/,"Comedy"],[/scar|night|thrill|tense|alone/,"Thriller"],[/space|think|mind|science/,"Sci-Fi"],[/kid|family|cute/,"Animation"],[/action|angry|energ|gym|rain/,"Action"]],g=(map.find(([r])=>r.test(q))||[0,GN[Math.floor(Math.random()*7)]])[1];
+ const pk=D.filter(m=>m.g===g&&!L.hist.includes(m.t)).sort((a,b)=>b.r-a.r).slice(0,2);
+ sM(s=>[...s,{t:v},...pk.map(m=>({b:1,m,t:`${m.t} (${m.r}/10, ${m.y}) — ${m.d}`})),{b:1,t:`Picked ${g} to match your vibe.`}]);sV("")};
+ return h`<div className="chat">${o&&h`<div className="pn"><b style=${{display:"flex",gap:8}}><${I} n="bot"/>Fusion AI</b><div style=${{flex:1,overflow:"auto"}}>${ms.map((m,i)=>h`<div key=${i} className=${"msg "+(m.b?"b":"u")} onClick=${()=>m.m&&go(m.m)} style=${{cursor:m.m?"pointer":"auto"}}>${m.t}</div>`)}</div><div className="in"><input placeholder="I feel happy, it's raining..." value=${v} onChange=${e=>sV(e.target.value)} onKeyDown=${e=>e.key==="Enter"&&say()}/><button onClick=${say}><${I} n="send"/></button></div></div>`}
+ <button className="btn" style=${{borderRadius:99,width:56,height:56,justifyContent:"center",padding:0}} onClick=${()=>sO(!o)}><${I} n=${o?"x":"bot"}/></button></div>`}
+
+function Account({u,setU,L,go,pf,setPf,lang,setLang,out}){
+ const[t,sT]=S("History");const ls=k=>L[k].map(x=>D.find(m=>m.t===x)).filter(Boolean),[tw,sTw]=S({n:1,a:1,d:0,s:1});
+ const Sw=k=>h`<button className=${"sw"+(tw[k]?" on":"")} onClick=${()=>sTw({...tw,[k]:+!tw[k]})}><i></i></button>`;
+ if(pf==="set")return h`<div className="up" style=${{maxWidth:640}}><h2>Settings</h2>
+ <div className="set">Name<input className="fi" value=${u.n} onChange=${e=>setU({...u,n:e.target.value})}/></div><div className="set">Email<input className="fi" value=${u.e} onChange=${e=>setU({...u,e:e.target.value})}/></div>
+ <div className="set">App language<select value=${lang} onChange=${e=>setLang(e.target.value)}>${LG.map(l=>h`<option key=${l}>${l}</option>`)}</select></div>
+ <div className="set">Notifications ${Sw("n")}</div><div className="set">Autoplay next ${Sw("a")}</div><div className="set">Data saver downloads ${Sw("d")}</div><div className="set">Subtitles by default ${Sw("s")}</div>
+ <div className="set">Parental controls <${I} n="lock"/></div><button className="btn" style=${{marginTop:16}} onClick=${out}><${I} n="out"/>Sign out</button></div>`;
+ return h`<div className="up"><div style=${{display:"flex",gap:14,alignItems:"center",margin:"20px 0"}}><${Av} n=${u.n} s=${72}/><div><h2 style=${{margin:0}}>${u.n}</h2><span style=${{color:"var(--mu)"}}>${u.e}</span></div></div>
+ <div className="tabs" style=${{padding:0}}>${["History","Downloads","Watch Later","Favorites","About","Privacy"].map(x=>h`<button key=${x} className=${t===x?"on":""} onClick=${()=>sT(x)}>${x}</button>`)}</div>
+ ${{History:"hist",Downloads:"dl","Watch Later":"later",Favorites:"wish"}[t]?h`<div className="grid" style=${{gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))"}}>${ls({History:"hist",Downloads:"dl","Watch Later":"later",Favorites:"wish"}[t]).map(m=>h`<${Post} key=${m.id} m=${m} go=${go}/>`)}</div>`:null}
+ ${t==="About"&&h`<p style=${{marginTop:16,lineHeight:1.7}}>Name: ${u.n}<br/>Email: ${u.e}<br/>Language: ${lang}<br/>Profile: ${u.g==="girl"?"Girl":"Boy"} theme</p>`}
+ ${t==="Privacy"&&h`<p style=${{marginTop:16,lineHeight:1.7,color:"var(--mu)"}}>MovWeFusion keeps your watch history, lists and preferences only to personalise recommendations. You can clear history or delete your account any time from Settings. We never sell personal data.</p>`}</div>`}
+
+function App(){
+ const[sc,sSc]=S("login"),[u,setU]=S({n:"",e:"you@movwefusion.com",g:"boy"}),[pr,sPr]=S({l:[],g:[],a:[],f:[]}),[mode,sMode]=S("dark"),[m,sm]=S(null),[tab,sTab]=S("For You"),[q,sq]=S(""),[sr,sSr]=S(false),[pg,sPg]=S("home"),[ld,sLd]=S(false),[lang,setLang]=S("English"),[fl,sFl]=S({l:"All",y:"All"});
+ const[L,sL]=S({like:[],dis:[],wish:[],later:[],dl:[],hist:[]});
+ const tg=(k,t,only)=>sL(s=>({...s,[k]:only?(s[k].includes(t)?s[k]:[...s[k],t]):s[k].includes(t)?s[k].filter(x=>x!==t):[...s[k],t]}));
+ const nav=f=>{sLd(true);setTimeout(()=>{f();sLd(false);scrollTo(0,0)},900)};
+ E(()=>{document.documentElement.dataset.m=mode},[mode]);
+ E(()=>{const r=document.documentElement.style;if(m){r.setProperty("--a",`hsl(${m.hue} 80% 55%)`);r.setProperty("--b",`hsl(${(m.hue+70)%360} 75% 50%)`)}else{r.removeProperty("--a");r.removeProperty("--b")}},[m]);
+ if(sc==="login")return h`<${Login} ok=${n=>{setU({...u,n});sSc("prefs")}}/>`;
+ if(sc==="prefs")return h`<${Prefs} ok=${(g,s)=>{setU(x=>({...x,g}));sPr(s);if(s.l[0])setLang(s.l.includes("English")?"English":s.l[0]);nav(()=>sSc("app"))}}/>${ld&&h`<${Load}/>`}`;
+ const sc2=x=>D.reduce((a,b)=>a,0)||(pr.l.includes(x.l)*2+pr.g.includes(x.g)*2+x.a.filter(a=>pr.a.concat(pr.f).includes(a)).length*3+x.r/4);
+ const rec=[...D].sort((a,b)=>sc2(b)-sc2(a)).slice(0,50),go=x=>nav(()=>{sm(x);sPg("movie")}),home=()=>nav(()=>{sm(null);sPg("home")});
+ const f=D.filter(x=>(fl.l==="All"||x.l===fl.l)&&(fl.y==="All"||(fl.y==="2020s"?x.y>=2020:fl.y==="2010s"?x.y>=2010&&x.y<2020:x.y<2010))&&(!q||x.t.toLowerCase().includes(q.toLowerCase())||x.a.join().toLowerCase().includes(q.toLowerCase())));
+ const hr=new Date().getHours(),gt=hr<12?"Good morning":hr<18?"Good afternoon":"Good evening";
+ return h`<div><header><b className="logo" style=${{fontSize:24,cursor:"pointer"}} onClick=${home}>MovWeFusion</b><span style=${{flex:1}}></span>
+ ${sr&&h`<label className="in" style=${{margin:0,background:"var(--bg2)",color:"var(--tx)"}}><input autoFocus placeholder="Search titles or actors" value=${q} onChange=${e=>sq(e.target.value)}/></label>`}
+ <button className="ic" onClick=${()=>{sSr(!sr);sq("")}}><${I} n="search"/></button><button className="ic" onClick=${()=>sMode(mode==="dark"?"light":"dark")}><${I} n=${mode==="dark"?"sun":"moon"}/></button>
+ <button className="ic" onClick=${()=>nav(()=>{sm(null);sPg("prof")})}><${I} n="user"/></button><button className="ic" onClick=${()=>nav(()=>{sm(null);sPg("set")})}><${I} n="set"/></button></header>
+ <main>${pg==="movie"&&m?h`<${Detail} key=${m.id} m=${m} L=${L} tg=${tg} go=${go} back=${home}/>`:pg==="home"?h`<div>
+ <div className="tabs" style=${{padding:"8px 0"}}>${["For You","All",...GN].map(t=>h`<button key=${t} className=${tab===t?"on":""} onClick=${()=>sTab(t)}>${t}</button>`)}</div>
+ <div className="wl up" style=${{margin:"10px 0"}}><svg className="st" width="54" height="54" viewBox="0 0 24 24" fill="#fff"><path d=${P.star}/></svg><div><div style=${{fontSize:13,opacity:.9}}>${GT[lang]||"Welcome back"}</div><div style=${{fontSize:"clamp(20px,4vw,30px)",fontWeight:800}}>${gt}, ${u.n}!</div><div>${CP[hr%4]}.</div></div></div>
+ <div style=${{display:"flex",gap:8,flexWrap:"wrap"}}><select value=${fl.l} onChange=${e=>sFl({...fl,l:e.target.value})}><option>All</option>${LG.map(l=>h`<option key=${l}>${l}</option>`)}</select><select value=${fl.y} onChange=${e=>sFl({...fl,y:e.target.value})}>${["All","2020s","2010s","Classics"].map(y=>h`<option key=${y}>${y}</option>`)}</select><button className="gh" onClick=${()=>sFl({...fl,y:"All",l:"All"})}>Popular</button></div>
+ ${q?h`<${Rw} t=${"Results for "+q} list=${f} go=${go}/>`:tab==="For You"?h`<${Rw} t="Top picks for you" list=${rec.filter(x=>f.includes(x))} go=${go}/>${GN.map(g=>h`<${Rw} key=${g} t=${g} list=${f.filter(x=>x.g===g)} go=${go}/>`)}`:h`<${Rw} t=${tab} list=${f.filter(x=>tab==="All"||x.g===tab)} go=${go}/>`}</div>`
+ :h`<${Account} u=${u} setU=${setU} L=${L} go=${go} pf=${pg} setPf=${sPg} lang=${lang} setLang=${setLang} out=${()=>nav(()=>sSc("login"))}/>`}</main>
+ <${Bot} go=${go} L=${L}/>${ld&&h`<${Load}/>`}</div>`}
+ReactDOM.createRoot(document.getElementById("r")).render(h`<${App}/>`);
+</script></body></html>
